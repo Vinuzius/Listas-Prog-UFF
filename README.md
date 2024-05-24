@@ -1,2 +1,2 @@
 # Listas-Prog-UFF
-Testando minhas listas de prog da uff
+Upando Exercícios produzidos para matérias de Programação na UFF
