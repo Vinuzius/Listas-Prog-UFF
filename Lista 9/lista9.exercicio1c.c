@@ -39,10 +39,10 @@ int main(void)
     lista[num-1].loc= (Local *) malloc(sizeof(Local)); 
     if(lista[num-1].loc==NULL) {printf("Sem memoria."); exit(1);} 
 
-    //Loop com Menu para decidir 
+    //Loop com Menu para o usuário decidir 
     while(1)
     {
-        if(opcao ==4) break;
+        if(opcao ==4) break; // Caso for 4 ele vai parar o loop
         printf("\n===============================\n");
         printf("|1- Novo Candidato            |\n");
         printf("|2- Mostrar Todos Candidatos  |\n");
@@ -54,37 +54,37 @@ int main(void)
         switch (opcao)
         {
             case 1:
-                if(num>=2)
-                {
-                    lista = realloc(lista,sizeof(Candidato) * num);
+                if(num>=2) // o candidato 1 já foi alocado no inicio do programa
+                {   // Realocar com o novo candidato
+                    lista = realloc(lista,sizeof(Candidato) * num); 
                     if(lista==NULL) {printf("Sem memoria."); exit(1);}
 
                     lista[num-1].loc= (Local *) malloc(sizeof(Local)); 
                     if(lista[num-1].loc==NULL) {printf("Sem memoria."); exit(1);} 
                 }
-                CadastroCandidato(lista, (num-1) );
+                CadastroCandidato(lista, (num-1) ); // num-1 porque começa no 0
                 num++;
                 break;
         
             case 2:
-                if(num==1)  { printf("Nao existe Candidato cadastrado.\n"); continue; } 
-                else    
-                    { MostrarCandidato(lista, (num-1) );  opcao = 4; }               
+                if(num==1)  { printf("Nao existe Candidato cadastrado.\n"); continue; }
+                else  // Se for 1 o candidato nao foi preenchido, se não, existe pelo menos um candidato
+                    { MostrarCandidato(lista, (num-1) );}               
                 break;
             
             case 3:
                 if(num==1)  { printf("Nao existe Candidato cadastrado.\n"); continue; } 
-                else
+                else  // Se for 1 o candidato nao foi preenchido, se não, existe pelo menos um candidato
                 {
                     int endereco;
                     printf("Qual o numero do candidato para mudar o endereco? "); scanf("%d",&endereco);
                     if(endereco <= (num-1) )
                         MudarEndereco(lista,(endereco-1) ); 
-                    else
+                    else // Se o endereco for maior que num então indice nao existe
                         printf("Numero de candidato nao existe.");
                 }
-
                 break;
+                
             default:
                 printf("Fim do programa.");
                 break;
