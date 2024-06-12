@@ -26,6 +26,7 @@ typedef struct candidato {
 
 void CadastroCandidato(Candidato *candidatos,int n);
 void MostrarCandidato(Candidato *candidatos,int n);
+void LiberarCandidato(Candidato *candidatos,int n);                            
 int main(void)
 {
     int n;
@@ -44,6 +45,7 @@ int main(void)
     // ============================== //
     CadastroCandidato(lista,n);
     MostrarCandidato(lista,n);
+    LiberarCandidato(lista,n);
     return 0;
 }
 
@@ -79,4 +81,10 @@ void MostrarCandidato(Candidato *candidatos,int n)
         printf("\nLocal e Sala           : %s, %d",candidatos[i].loc->ender,candidatos[i].loc->sala);
         printf("\nNota Geral e Especifica: %.1f | %.1f",candidatos[i].nt.geral,candidatos[i].nt.especifica);
     }    
+}
+void LiberarCandidato(Candidato *candidatos,int n)
+{
+    for(int i=0;i<n;i++)
+        free(candidatos[i].loc);
+    free(candidatos);
 }

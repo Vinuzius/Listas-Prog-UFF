@@ -26,29 +26,64 @@ typedef struct candidato {
 
 void CadastroCandidato(Candidato *candidatos,int n);
 void MostrarCandidato(Candidato *candidatos,int n);
+void LiberarCandidato(Candidato *candidatos,int n);                            
 int main(void)
 {
-    int n;
+    int num=1,opcao=0;
     Candidato *lista; // Vetor de Candidatos
 
-    //Alocando dinamicamente a lista com N candidatos. Tem que alocar o Local separadamente pois ele é um ponteiro.
-    printf("Quantos candidatos? "); scanf("%d",&n);
-    lista= (Candidato *) malloc(sizeof(Candidato) * n);
-    for(int i=0;i<n;i++)    { lista[i].loc= (Local *) malloc(sizeof(Local)); }
+    //Alocando Candidato 1
+    lista= (Candidato *) malloc(sizeof(Candidato) * num);
+    if(lista==NULL) {printf("Sem memoria."); exit(1);}
+    lista[num-1].loc= (Local *) malloc(sizeof(Local)); 
+    if(lista[num-1].loc==NULL) {printf("Sem memoria."); exit(1);}  
+    //Loop para decidir
+    while(1)
+    {
+        if(opcao ==2) break;
+        printf("\n=============================\n");
+        printf("|1- Novo Candidato          |\n");
+        printf("|2- Mostrar Todos Candidatos|\n");
+        printf("|3- Parar                   |\n");    
+        printf("=============================\n");
+        printf("Opcao: "); scanf("%d",&opcao);
+        
+        switch (opcao)
+        {
+            case 1:
+                if(num>=2)
+                {
+                    lista = realloc(lista,sizeof(Candidato) * num);
+                    if(lista==NULL) {printf("Sem memoria."); exit(1);}
 
-    CadastroCandidato(lista,n);
-    MostrarCandidato(lista,n);
+                    lista[num-1].loc= (Local *) malloc(sizeof(Local)); 
+                    if(lista[num-1].loc==NULL) {printf("Sem memoria."); exit(1);} 
+                }
+                CadastroCandidato(lista, (num-1) );
+                num++;
+                break;
+        
+            case 2:
+                if(num==1)  { printf("Nao existe Candidato cadastrado.\n"); continue; } 
+                else    
+                    { MostrarCandidato(lista, (num-1) );}
+                
+                break;
+        
+            default:
+                printf("Fim do programa."); return 0;
+                break;
+        }
 
-
-
+    }
+    printf("\n------------------------------------------");
+    LiberarCandidato(lista, (num-1) );
     return 0;
 }
 
-void CadastroCandidato(Candidato *candidatos,int n)
+void CadastroCandidato(Candidato *candidatos,int i)
 {
-    for(int i=0;i<n;i++)
-    {
-        printf("\nInforme os dados do candidato %d.....\n",i);
+        printf("\nInforme os dados do candidato %d.....\n",i+1);
         printf("Numero da incricao  : "); scanf("%d",&candidatos[i].inscr);
 
         while ((getchar()) != '\n');
@@ -62,13 +97,12 @@ void CadastroCandidato(Candidato *candidatos,int n)
         printf("    Sala            : "); scanf("%d",&candidatos[i].loc->sala);
         printf("Nota Geral          : "); scanf("%f",&candidatos[i].nt.geral);
         printf("Nota Especifica     : "); scanf("%f",&candidatos[i].nt.especifica);
-    }
 }
 void MostrarCandidato(Candidato *candidatos,int n)
 {
     for(int i=0;i<n;i++)
     {
-        printf("==============================\n");
+        printf("\n==============================\n");
         printf("Dados do candidato %d...",i);
         printf("\nNumero da incricao     : %d",candidatos[i].inscr);
         printf("\nNome do candidato      : %s",candidatos[i].nome);
@@ -76,4 +110,10 @@ void MostrarCandidato(Candidato *candidatos,int n)
         printf("\nLocal e Sala           : %s, %d",candidatos[i].loc->ender,candidatos[i].loc->sala);
         printf("\nNota Geral e Especifica: %.1f | %.1f",candidatos[i].nt.geral,candidatos[i].nt.especifica);
     }    
+}
+void LiberarCandidato(Candidato *candidatos,int n)
+{
+    for(int i=0;i<n;i++)
+        free(candidatos[i].loc);
+    free(candidatos);
 }

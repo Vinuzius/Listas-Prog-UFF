@@ -9,8 +9,8 @@ typedef struct data {
 } Data;
 
 /*
-a) Possui um erro na linha 20. Não é possivel fazer o Malloc sem ser com ponteiro.
-b) Vai ser mostrado 5
+a) Possui um erro na linha 25 (20 sem os comentarios). Não é possivel fazer o Malloc sem ser com ponteiro.
+b) Deveria ser mostrado 5, porem como não tem SetLocale, ele conta o caracter quebrado e vai mostrar 6.
 */
 
 main()
@@ -22,6 +22,6 @@ main()
 	printf("Nome do mes %d: %s.", p_dt->mes, p_dt->nomeMes);
 	strcpy(p_dt->nomeMes, "MARÇO");
 	printf("\nNumero de letras : %d", strlen(p_dt->nomeMes));
-	Data* p_dt2 = (Data*) malloc(sizeof(Data));
+	Data *p_dt2 = (Data*) malloc(sizeof(Data));
 	p_dt2 = &aniversarios[0];
 }
