@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct endereco {
  char rua[100]; /* Nome da rua */
@@ -17,11 +18,46 @@ typedef struct aluno {
  Endereco *end; /* Endereco do aluno */
 } Aluno;
 
-main()
+Aluno **alocaAlunos(int n);
+void atribui(Aluno ** a, int indice, int matricula, char *nome, float
+nota1, float nota2, float nota3, char *nomeRua, int numero);
+
+int main(void)
 {
- Aluno **alunos;
- alunos = alocaAlunos(3);
- atribui(alunos,0,10,"Um",1,1,1,"Getulio Vargas",100);
- atribui(alunos,1,20,"Dois",8,8,8,"Amaral Peixoto",200);
- atribui(alunos,2,30,"Tres",9,9,9,"Ouro Verde",300);
+    Aluno **alunos;
+    alunos = alocaAlunos(3);
+    
+    atribui(alunos,0,10,"Um",1,1,1,"Getulio Vargas",100);
+    atribui(alunos,1,20,"Dois",8,8,8,"Amaral Peixoto",200);
+    atribui(alunos,2,30,"Tres",9,9,9,"Ouro Verde",300);
+
+    return 0;
+}
+Aluno ** alocaAlunos(int n)
+{
+    Aluno **alunos;
+    //Primeiro Alocando a lista de Alunos com ponteiros.
+    alunos = (Aluno **) malloc(n * sizeof(Aluno *));
+    if(alunos == NULL) {printf("Sem memoria."); exit(1);}
+    
+    for(int i=0;i<n;i++)
+    {
+        //Alocando cada espaço com o tamanho de um aluno.
+        alunos[i]= (Aluno *) malloc(sizeof(Aluno));
+        if(alunos[i] == NULL) {printf("Sem memoria."); exit(1);}
+
+        //Alocando o endereço dentro de cada aluno.
+        alunos[i]->end= (Endereco *) malloc(sizeof(Endereco));
+        if(alunos[i]->end == NULL) {printf("Sem memoria."); exit(1);}
+    }
+    return alunos;
+}
+void atribui(Aluno ** a, int indice, int matricula, char *nome, float
+nota1, float nota2, float nota3, char *nomeRua, int numero)
+{
+    a[indice]->mat= matricula;  strcpy(a[indice]->nome,nome);
+
+    a[indice]->nota.p1= nota1; a[indice]->nota.p2= nota2; a[indice]->nota.p3= nota3;
+
+    strcpy( a[indice]->end->rua,nomeRua); a[indice]->end->numero = numero;
 }
