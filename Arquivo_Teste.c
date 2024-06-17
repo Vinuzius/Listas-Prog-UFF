@@ -22,12 +22,6 @@ int main(void)
     //bubble_sort(lista,tamanho);
     //int num = Busca_Binaria_Recurssiva(lista,3,0,12);
 
-    float a;
-    a = ceil(1/2);
-    int b;
-    b= ceil(a);
-    printf("A= %.2f   B=%d",a,b);
-
     return 0;
 }
 

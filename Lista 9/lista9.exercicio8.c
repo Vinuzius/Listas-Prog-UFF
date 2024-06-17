@@ -20,6 +20,7 @@ Compromisso* busca(int n, Compromisso** vet, int d, int m, int a);
 
 int main(void)
 {
+    //Inicializando e Alocando o calendario de compromissos. Colocando uns exemplos para teste. 
     Compromisso **calendario;
     calendario = (Compromisso **) malloc(5* sizeof(Compromisso *));
     for(int i=0;i<5;i++)
@@ -30,6 +31,7 @@ int main(void)
     calendario[3]->dta.dd= 31; calendario[3]->dta.mm = 8;  calendario[3]->dta.aa= 2025;
     calendario[4]->dta.dd= 9;  calendario[4]->dta.mm = 2;  calendario[4]->dta.aa= 2026;
     //==========================//
+    // Teste da Função Busca
     Compromisso *teste;
     teste = busca(5, calendario, 1,3,2024);
     if(teste != NULL)
@@ -39,9 +41,6 @@ int main(void)
     return 0;
 }
 
-//busca binária, implemente uma função que, dada uma data (dia, mês e ano)
-//, se há no vetor algum compromisso com essa data, retorna o ponteiro para este
-//compromisso. Caso contrário, a função deve retornar NULL
 Compromisso* busca(int n, Compromisso** vet, int d, int m, int a)
 { 
     int ini = 0,meio;
