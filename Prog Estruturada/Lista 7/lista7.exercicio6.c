@@ -4,7 +4,7 @@
 
 int main (void) 
 {
-    char texto[MAX +2], temp ;
+    char texto[S +2], temp ;
     int tam , i;
     gets( texto ); // pegar texto inserido (Vinicius)
     tam = strlen ( texto ); // tam = 8
