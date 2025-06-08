@@ -24,7 +24,7 @@ public class ex2 {
     }
 
     public static double MediaAluno(double[] notas, int n){
-        double media = 0.0f;
+        double media = 0.0;
 
         for(int i = 0; i<n;i++)
             media += notas[i];
