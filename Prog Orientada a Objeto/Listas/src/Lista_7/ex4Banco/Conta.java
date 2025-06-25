@@ -6,10 +6,9 @@ public class Conta {
 
     public Conta(int num, double s) throws Exception{
         Exception ex = new Exception("Saldo tem que ser maior que 0");
-        if (saldo < 0) {
+        if (s > 0) {
             this.saldo = s;
         }else {
-            System.out.print("Saldo inválido. ");
             throw  ex;
         }
         this.numero = num;
@@ -19,15 +18,29 @@ public class Conta {
         return saldo;
     }
 
-    public double sacar(double saque){
+    public double sacar(double saque) throws Exception{
+        Exception ex = new Exception("Saque além do limite disponível");
+
+        if (saque <= 0) {
+            throw new IllegalArgumentException("Valor do saque deve ser positivo.");
+        }
+
         if ( (saldo - saque >= 0) ){
             saldo -= saque;
-            System.out.printf("Sacou: %.2f %nSaldo: %.2f %n",saque, this.saldo);
+            System.out.printf("Sacou: %.2f %nNovo saldo: %.2f %n",saque, this.saldo);
             return saque;
         }
         else{
-            System.out.printf("Saque além do limite disponível %nSaldo: %.2f %n",saldo);
-            return 0;
+           throw ex;
         }
+    }
+
+    public void depositar(double valor) throws Exception {
+        Exception ex = new Exception("Valor de depósito deve ser positivo.");
+        if (valor <= 0)
+            throw ex;
+
+        this.saldo += valor;
+        System.out.println("Depósito de " + valor + " realizado. Novo saldo: " + this.saldo);
     }
 }

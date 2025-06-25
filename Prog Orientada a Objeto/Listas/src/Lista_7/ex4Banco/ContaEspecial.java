@@ -9,17 +9,20 @@ public class ContaEspecial extends Conta {
         this.limite = -lim;
     }
 
+    public double getLimite() {
+        return limite;
+    }
+
     @Override
     public double sacar(double saque){
         double aux = saldo - saque;
         if ( aux >= limite){
             saldo -= saque;
-            System.out.printf("Sacou: %.2f %nSaldo: %.2f %n",saque, this.saldo);
+            System.out.printf("Sacou: %.2f %nNovo Saldo: %.2f %n",saque, this.saldo);
             return saque;
         }
         else{
-            System.out.printf("Saque além do limite disponível %nSaldo: %.2f %n",saldo);
-            return 0;
+            throw new IllegalArgumentException("Valor do saque é maior que o limite");
         }
     }
 }
